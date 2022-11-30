@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-class OrganisationEntity {
+public class OrganisationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ class OrganisationEntity {
     @Enumerated(EnumType.STRING)
     private Organisation.Status status;
 
-    static OrganisationEntity of(Organisation organisation) {
+    public static OrganisationEntity of(Organisation organisation) {
         return new OrganisationEntity(
                 organisation.getId(),
                 organisation.getName(),
@@ -26,7 +26,7 @@ class OrganisationEntity {
         );
     }
 
-    Organisation toDomain() {
+    public Organisation toDomain() {
         return new Organisation(
                 id,
                 name,

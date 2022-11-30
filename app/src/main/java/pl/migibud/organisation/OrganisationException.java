@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public
-class OrganisationException extends RuntimeException{
+public class OrganisationException extends RuntimeException{
 
 	private OrganisationError organisationError;
 }
