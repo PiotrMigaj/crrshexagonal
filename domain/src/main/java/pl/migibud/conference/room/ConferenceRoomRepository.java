@@ -2,7 +2,7 @@ package pl.migibud.conference.room;
 
 import java.util.Optional;
 
-interface ConferenceRoomRepository {
+public interface ConferenceRoomRepository {
     boolean existsByNameAndOrganisation_Id(String name,Long organisationId);
     ConferenceRoom save(ConferenceRoom conferenceRoom);
     Optional<ConferenceRoom> findById(String id);

@@ -3,15 +3,17 @@ package pl.migibud.conference.room;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.migibud.organisation.OrganisationEntity;
 
 import java.util.Optional;
 
 interface SqlConferenceRoomQueryRepository extends ConferenceRoomQueryRepository,JpaRepository<ConferenceRoomEntity,String>{
 }
+
+
+
 interface SqlConferenceRoomRepository extends JpaRepository<ConferenceRoomEntity,String>{
     boolean existsByNameAndOrganisationEntity_Id(String name, Long id);
-
+    Optional<ConferenceRoomEntity> findByNameAndOrganisationEntity_Id(String name, Long organisationEntityId);
 }
 
 @Repository
@@ -32,16 +34,18 @@ class ConferenceRoomRepositoryImpl implements ConferenceRoomRepository {
 
     @Override
     public Optional<ConferenceRoom> findById(String id) {
-        return Optional.empty();
+        return sqlConferenceRoomRepository.findById(id)
+                .map(ConferenceRoomEntity::toDomain);
     }
 
     @Override
     public void delete(ConferenceRoom conferenceRoom) {
-
+        sqlConferenceRoomRepository.delete(ConferenceRoomEntity.of(conferenceRoom));
     }
 
     @Override
     public Optional<ConferenceRoom> findByNameAndOrganisation_Id(String name, Long organisationId) {
-        return Optional.empty();
+        return sqlConferenceRoomRepository.findByNameAndOrganisationEntity_Id(name,organisationId)
+                .map(ConferenceRoomEntity::toDomain);
     }
 }
